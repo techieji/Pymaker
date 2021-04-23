@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstart &#8212; Pymaker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Pymaker is a very simple tool to learn; as of now, it only
+has three functions you can possibly use! Learning it is very
+easy.</p>
+<p>Pymaker by default runs the makefile titled Makefile.py. You should
+put all your functions in that file. As for the actual file, it’s pretty
+simple! Here’s an example file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymaker</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">r</span>
+
+<span class="nd">@command</span>
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+     <span class="n">r</span><span class="p">(</span><span class="s2">&quot;echo Hello, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can run this file by running <code class="docutils literal notranslate"><span class="pre">pymaker</span> <span class="pre">start</span></code>. <code class="docutils literal notranslate"><span class="pre">r</span></code> is basically a wrapper
+around <code class="docutils literal notranslate"><span class="pre">os.system</span></code> or <code class="docutils literal notranslate"><span class="pre">subprocess.call</span></code>, depending on whether you call it with
+a string or a list. So this file might be similar to:</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">start</span><span class="o">:</span>
+     <span class="nb">echo</span> Hello, World!
+</pre></div>
+</div>
+<p>You can also define dependencies as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymaker</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">r</span>
+
+<span class="nd">@command</span>
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+     <span class="n">r</span><span class="p">(</span><span class="s2">&quot;echo Hello, World!&quot;</span><span class="p">)</span>
+
+<span class="nd">@command</span><span class="p">(</span><span class="n">deps</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">end</span><span class="p">():</span>
+     <span class="n">r</span><span class="p">(</span><span class="s2">&quot;echo Goodbye, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you run this as <code class="docutils literal notranslate"><span class="pre">pymaker</span> <span class="pre">end</span></code>, you will see <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code> then
+<code class="docutils literal notranslate"><span class="pre">Goodbye,</span> <span class="pre">World</span></code>. You can also define command line arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymaker</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">declare_argument</span>
+
+<span class="n">declare_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">)</span>
+
+<span class="nd">@command</span>
+<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">ns</span><span class="p">):</span>   <span class="c1"># The name of this argument **must** be ns</span>
+     <span class="n">r</span><span class="p">([</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello, &#39;</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If you run this as <code class="docutils literal notranslate"><span class="pre">pymaker</span> <span class="pre">greet</span> <span class="pre">--name</span> <span class="pre">Bob</span></code>, the output will be <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">Bob</span></code>.</p>
+<p>See? So simple!</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Pymaker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Pradhyum R.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

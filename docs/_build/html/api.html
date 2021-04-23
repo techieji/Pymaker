@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API &#8212; Pymaker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <span class="target" id="module-pymaker"></span><div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the API of Pymaker!</p>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="pymaker.RecursiveDefinitionError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">RecursiveDefinitionError</span></code><a class="headerlink" href="#pymaker.RecursiveDefinitionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>An error raised when a recursive definition is detected.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="public-functions">
+<h2>Public Functions<a class="headerlink" href="#public-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pymaker.command">
+<code class="sig-prename descclassname"><span class="pre">&#64;</span></code><code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">command</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a command. Dependencies can be declared through the <code class="docutils literal notranslate"><span class="pre">deps</span></code> argument. Help for
+that command can be defined through the docstring. A command name can be provided through
+the <code class="docutils literal notranslate"><span class="pre">name</span></code> option, but it defaults to the function’s name, which is probably what you
+want. Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="nd">@command</span>
+ <span class="k">def</span> <span class="nf">fn</span><span class="p">():</span>
+     <span class="s2">&quot;This is a help string.&quot;</span>
+     <span class="k">pass</span>
+
+ <span class="nd">@command</span><span class="p">(</span><span class="n">deps</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fn&#39;</span><span class="p">])</span>
+ <span class="k">def</span> <span class="nf">fn2</span><span class="p">():</span>
+     <span class="k">pass</span>
+
+<span class="nd">@command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;notme&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">fn3</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pymaker.declare_argument">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">declare_argument</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.declare_argument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declare a command-line argument. Acts as a wrapper around <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser.add_argument</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pymaker.r">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">r</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a command. This is a wrapper for either <code class="docutils literal notranslate"><span class="pre">os.system</span></code> or
+<code class="docutils literal notranslate"><span class="pre">subprocess.call</span></code>, depending on whether the argument is a string
+or a list. Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;echo &quot;This is a test&quot;&#39;</span><span class="p">)</span>
+<span class="go">Pymaker: echo &quot;This is a test&quot;</span>
+<span class="go">This is a test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">([</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s1">&#39;This is a test&#39;</span><span class="p">])</span>
+<span class="go">Pymaker: echo This is a test</span>
+<span class="go">This is a test</span>
+</pre></div>
+</div>
+<p>Use this function instead of <code class="docutils literal notranslate"><span class="pre">os.system</span></code> or <code class="docutils literal notranslate"><span class="pre">subprocess.call</span></code> when
+calling shell commands.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pymaker.main">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Makefile.py'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function. Can be added like so to make any file a Makefile:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, you can run that file like a Makefile by doing <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;command&gt;</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="private-functions">
+<h2>Private Functions<a class="headerlink" href="#private-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pymaker.build_direc">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">build_direc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.build_direc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a directory of all commands.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pymaker.call_command">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">call_command</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.call_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a command, given a command name, a directory, and a namespace object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pymaker.make_help_message">
+<code class="sig-prename descclassname"><span class="pre">pymaker.</span></code><code class="sig-name descname"><span class="pre">make_help_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymaker.make_help_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a help message from the Makefile.py present in the directory.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Pymaker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-functions">Public Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#private-functions">Private Functions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Quickstart</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Pradhyum R.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
