@@ -16,8 +16,8 @@ Pymaker, the better alternative to make.
 
 .. note::
 
-   Because I don't own the package name ``Pymaker``, to install, you
-   run ``pip install py-maker``
+   Because I don't own the package name ``Pymaker``, to install, you should
+   run ``pip install pymade``
 
 .. code:: python
 

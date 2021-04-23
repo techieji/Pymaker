@@ -3,7 +3,7 @@ requires = ["flit_core >=2,<4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.metadata]
-module = "py-maker"
+module = "pymade"
 author = "Pradhyum R"
 author-email = "drpradhyum2016@outlook.com"
 home-page = "https://pymaker.readthedocs.io/en/latest/"
