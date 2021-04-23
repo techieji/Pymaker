@@ -6,7 +6,12 @@ build-backend = "flit_core.buildapi"
 module = "pymaker"
 author = "Pradhyum R"
 author-email = "drpradhyum2016@outlook.com"
+home-page = "https://pymaker.readthedocs.io/en/latest/"
 classifiers = [ "License :: OSI Approved :: MIT License",]
+
+[tool.flit.metadata.urls]
+Documentation = "https://pymaker.readthedocs.io/en/latest/"
+Source-Code = "https://github.com/techieji/Pymaker"
 
 [tool.flit.scripts]
 pymaker = "pymaker.pymaker:main"
