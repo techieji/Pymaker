@@ -14,6 +14,11 @@ Welcome to Pymaker's documentation!
 
 Pymaker, the better alternative to make.
 
+.. note::
+
+   Because I don't own the package name ``Pymaker``, to install, you
+   run ``pip install py-maker``
+
 .. code:: python
 
    from pymaker import command, r
